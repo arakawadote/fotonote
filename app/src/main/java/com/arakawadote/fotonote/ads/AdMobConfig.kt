@@ -1,5 +1,5 @@
 ﻿package com.arakawadote.fotonote.ads
 
 object AdMobConfig {
-    const val TEST_ADAPTIVE_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/9214589741"
+    const val BANNER_AD_UNIT_ID = "ca-app-pub-9719679577337445/7848996628"
 }

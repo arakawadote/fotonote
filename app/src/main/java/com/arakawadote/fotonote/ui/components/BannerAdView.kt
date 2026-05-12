@@ -45,7 +45,7 @@ fun BannerAdView(
         val adView = remember(adSize) {
             AdView(context).apply {
                 setAdSize(adSize)
-                adUnitId = AdMobConfig.TEST_ADAPTIVE_BANNER_AD_UNIT_ID
+                adUnitId = AdMobConfig.BANNER_AD_UNIT_ID
                 loadAd(AdRequest.Builder().build())
             }
         }
