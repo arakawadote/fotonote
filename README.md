@@ -1,4 +1,4 @@
-# FotoNote
+﻿# FotoNote
 
 Android向けのKotlin / Jetpack Composeアプリです。
 
@@ -7,7 +7,7 @@ Android向けのKotlin / Jetpack Composeアプリです。
 ## 現在の設定
 
 - アプリ名: FotoNote
-- 仮パッケージ名: `com.example.exifframe`
+- パッケージ名: `com.arakawadote.fotonote`
 - 最小対応Android: Android 8.0 / API 26
 - 画面向き: 縦画面メイン
 - 初期テンプレート: Classic White / 幅1080px / 高さ可変
@@ -46,7 +46,7 @@ https://<GitHubユーザー名>.github.io/<リポジトリ名>/privacy.html
 
 - Play Consoleはまず内部テストで進める
 - 本番用AdMob IDに差し替える
-- パッケージ名を最終決定する
+- パッケージ名: `com.arakawadote.fotonote`
 - 署名設定を作成する
 - GitHub Pagesの公開URLをPlay Consoleに登録する
 

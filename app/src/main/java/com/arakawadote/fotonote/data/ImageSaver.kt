@@ -1,4 +1,4 @@
-package com.example.exifframe.data
+﻿package com.arakawadote.fotonote.data
 
 import android.content.ContentValues
 import android.content.Context

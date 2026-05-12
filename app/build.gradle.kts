@@ -1,15 +1,15 @@
-plugins {
+﻿plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
-    namespace = "com.example.exifframe"
+    namespace = "com.arakawadote.fotonote"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.exifframe"
+        applicationId = "com.arakawadote.fotonote"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

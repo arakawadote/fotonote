@@ -1,4 +1,4 @@
-package com.example.exifframe.ui.theme
+﻿package com.arakawadote.fotonote.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

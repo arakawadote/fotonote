@@ -1,4 +1,4 @@
-package com.example.exifframe.domain.model
+﻿package com.arakawadote.fotonote.domain.model
 
 enum class ExportSize(
     val width: Int

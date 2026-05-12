@@ -1,4 +1,4 @@
-package com.example.exifframe.ui.components
+﻿package com.arakawadote.fotonote.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.example.exifframe.ads.AdMobConfig
+import com.arakawadote.fotonote.ads.AdMobConfig
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView

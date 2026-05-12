@@ -1,4 +1,4 @@
-package com.example.exifframe.domain.model
+﻿package com.arakawadote.fotonote.domain.model
 
 data class ExifData(
     val make: String? = null,

@@ -1,4 +1,4 @@
-package com.example.exifframe.ui
+﻿package com.arakawadote.fotonote.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,9 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.google.android.gms.ads.MobileAds
-import com.example.exifframe.ui.screens.EditorScreen
-import com.example.exifframe.ui.screens.PrivacyPolicyScreen
-import com.example.exifframe.ui.theme.FotoNoteTheme
+import com.arakawadote.fotonote.ui.screens.EditorScreen
+import com.arakawadote.fotonote.ui.screens.PrivacyPolicyScreen
+import com.arakawadote.fotonote.ui.theme.FotoNoteTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,12 +1,12 @@
-package com.example.exifframe.ui
+﻿package com.arakawadote.fotonote.ui
 
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.exifframe.data.ExifReader
-import com.example.exifframe.domain.model.EditorState
-import com.example.exifframe.domain.usecase.ExportImageUseCase
+import com.arakawadote.fotonote.data.ExifReader
+import com.arakawadote.fotonote.domain.model.EditorState
+import com.arakawadote.fotonote.domain.usecase.ExportImageUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

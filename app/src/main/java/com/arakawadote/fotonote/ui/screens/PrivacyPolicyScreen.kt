@@ -1,4 +1,4 @@
-package com.example.exifframe.ui.screens
+﻿package com.arakawadote.fotonote.ui.screens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background

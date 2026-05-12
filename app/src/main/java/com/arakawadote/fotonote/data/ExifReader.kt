@@ -1,9 +1,9 @@
-package com.example.exifframe.data
+﻿package com.arakawadote.fotonote.data
 
 import android.content.Context
 import android.net.Uri
 import androidx.exifinterface.media.ExifInterface
-import com.example.exifframe.domain.model.ExifData
+import com.arakawadote.fotonote.domain.model.ExifData
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale

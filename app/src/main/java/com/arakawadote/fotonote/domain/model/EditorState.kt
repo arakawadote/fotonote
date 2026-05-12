@@ -1,4 +1,4 @@
-package com.example.exifframe.domain.model
+﻿package com.arakawadote.fotonote.domain.model
 
 import android.net.Uri
 

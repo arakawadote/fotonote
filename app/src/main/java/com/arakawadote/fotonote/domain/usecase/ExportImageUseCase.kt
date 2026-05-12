@@ -1,4 +1,4 @@
-package com.example.exifframe.domain.usecase
+﻿package com.arakawadote.fotonote.domain.usecase
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,11 +8,11 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.net.Uri
-import com.example.exifframe.data.ImageDecoder
-import com.example.exifframe.data.ImageSaver
-import com.example.exifframe.domain.model.ExifData
-import com.example.exifframe.util.cameraName
-import com.example.exifframe.util.shootingSettings
+import com.arakawadote.fotonote.data.ImageDecoder
+import com.arakawadote.fotonote.data.ImageSaver
+import com.arakawadote.fotonote.domain.model.ExifData
+import com.arakawadote.fotonote.util.cameraName
+import com.arakawadote.fotonote.util.shootingSettings
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale

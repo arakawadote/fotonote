@@ -1,4 +1,4 @@
-package com.example.exifframe.ui.components
+﻿package com.arakawadote.fotonote.ui.components
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -32,10 +32,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.exifframe.data.ImageDecoder
-import com.example.exifframe.domain.model.ExifData
-import com.example.exifframe.util.cameraName
-import com.example.exifframe.util.shootingSettings
+import com.arakawadote.fotonote.data.ImageDecoder
+import com.arakawadote.fotonote.domain.model.ExifData
+import com.arakawadote.fotonote.util.cameraName
+import com.arakawadote.fotonote.util.shootingSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

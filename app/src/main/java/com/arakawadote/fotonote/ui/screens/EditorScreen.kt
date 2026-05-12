@@ -1,4 +1,4 @@
-package com.example.exifframe.ui.screens
+﻿package com.arakawadote.fotonote.ui.screens
 
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,9 +35,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.exifframe.ui.EditorViewModel
-import com.example.exifframe.ui.components.BannerAdView
-import com.example.exifframe.ui.components.PreviewCanvas
+import com.arakawadote.fotonote.ui.EditorViewModel
+import com.arakawadote.fotonote.ui.components.BannerAdView
+import com.arakawadote.fotonote.ui.components.PreviewCanvas
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

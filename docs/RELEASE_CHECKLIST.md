@@ -1,4 +1,4 @@
-# リリース前チェックリスト：FotoNote
+﻿# リリース前チェックリスト：FotoNote
 
 最終更新日：2026-05-12
 
@@ -7,7 +7,7 @@
 ## 現在の実装状況
 
 - [x] アプリ名：FotoNote
-- [x] 仮パッケージ名：`com.example.exifframe`
+- [x] パッケージ名：`com.arakawadote.fotonote`
 - [x] `minSdk`：26
 - [x] `targetSdk`：35
 - [x] 画像選択：OpenDocument
@@ -18,7 +18,7 @@
 - [x] 書き出し画像にUIボタンを含めない
 - [x] 書き出し画像に広告を含めない
 - [x] アプリアイコン設定
-- [ ] 正式パッケージ名の決定
+- [x] 正式パッケージ名の決定
 - [ ] 署名キーの作成と安全な保管
 - [ ] リリースビルド作成
 - [ ] Google Play Console登録
@@ -31,9 +31,8 @@
   - 現在 `targetSdk = 35`。
   - 2025-08-31以降、新規アプリとアップデートはAndroid 15 / API 35以降が必要。
 
-- [ ] アプリの正式パッケージ名
-  - 現在は `com.example.exifframe`。
-  - 公開前に正式なIDへ変更する。
+- [x] アプリの正式パッケージ名
+  - 現在は `com.arakawadote.fotonote`。
   - 一度公開すると基本的に同じアプリとして変更できないため、公開前に確定する。
 
 - [ ] Play ConsoleのData safety

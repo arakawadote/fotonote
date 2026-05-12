@@ -1,4 +1,4 @@
-package com.example.exifframe.data
+﻿package com.arakawadote.fotonote.data
 
 import android.content.Context
 import android.graphics.Bitmap

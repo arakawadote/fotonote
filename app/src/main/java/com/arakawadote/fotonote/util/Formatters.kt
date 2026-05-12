@@ -1,6 +1,6 @@
-package com.example.exifframe.util
+﻿package com.arakawadote.fotonote.util
 
-import com.example.exifframe.domain.model.ExifData
+import com.arakawadote.fotonote.domain.model.ExifData
 
 fun ExifData?.cameraName(): String {
     val make = this?.make.clean()
