@@ -24,6 +24,11 @@ https://<GitHubユーザー名>.github.io/<リポジトリ名>/privacy.html
 
 ## 公開前に差し替えるもの
 
-- `site/privacy.html` の問い合わせ先
 - 必要であれば `site/index.html` の説明文
 - Play Consoleに登録するプライバシーポリシーURL
+
+## 問い合わせ先
+
+```txt
+developmentbyarakawadote@gmail.com
+```

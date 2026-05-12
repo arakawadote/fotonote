@@ -1,8 +1,8 @@
 # プライバシーポリシー草案：FotoNote
 
-最終更新日：YYYY-MM-DD
+最終更新日：2026-05-12
 
-この文書は公開前の草案です。Google Play公開時には、開発者名、問い合わせ先、公開URLを正式な内容に差し替えてください。
+この文書は公開前の草案です。Google Play公開時には、開発者名と公開URLを正式な内容に差し替えてください。
 
 アプリ内にもプライバシーポリシーページを表示します。ただし、Google Play公開時にはPlay Consoleに登録するための公開URLも別途用意してください。
 
@@ -13,7 +13,7 @@ FotoNote
 ## 2. 開発者情報
 
 - 開発者名：TODO
-- 問い合わせ先：TODO
+- 問い合わせ先：developmentbyarakawadote@gmail.com
 
 ## 3. 取得する情報
 
@@ -71,7 +71,7 @@ FotoNoteは、子どもを主な対象としたアプリではありません。
 
 本プライバシーポリシーに関するお問い合わせは、以下までお願いします。
 
-TODO：問い合わせ先メールアドレスまたは問い合わせフォームURL
+developmentbyarakawadote@gmail.com
 
 ## 11. 改定
 

@@ -86,7 +86,7 @@ fun PrivacyPolicyScreen(
             )
 
             Text(
-                text = "最終更新日: 2026年5月11日",
+                text = "最終更新日: 2026年5月12日",
                 color = Color(0xFF444444),
                 style = MaterialTheme.typography.bodySmall
             )
@@ -123,7 +123,7 @@ fun PrivacyPolicyScreen(
 
             PolicySection(
                 title = "お問い合わせ",
-                body = "Google Play公開前に、公開用の問い合わせ先を設定します。"
+                body = "本プライバシーポリシーに関するお問い合わせは、developmentbyarakawadote@gmail.com までお願いします。"
             )
         }
     }
