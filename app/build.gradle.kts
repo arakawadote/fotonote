@@ -1,7 +1,37 @@
-﻿plugins {
+import java.util.Properties
+import org.gradle.api.GradleException
+
+plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
+}
+
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+val hasReleaseKeystore = listOf(
+    "storeFile",
+    "storePassword",
+    "keyAlias",
+    "keyPassword"
+).all { !keystoreProperties.getProperty(it).isNullOrBlank() }
+
+tasks.register("validateReleaseKeystore") {
+    doLast {
+        if (!hasReleaseKeystore) {
+            throw GradleException(
+                "Release signing is not configured. Create keystore.properties from keystore.properties.example before building a release AAB."
+            )
+        }
+    }
+}
+
+tasks.matching { it.name == "preReleaseBuild" }.configureEach {
+    dependsOn("validateReleaseKeystore")
 }
 
 android {
@@ -16,8 +46,22 @@ android {
         versionName = "0.1.0"
     }
 
+    signingConfigs {
+        if (hasReleaseKeystore) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            if (hasReleaseKeystore) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),

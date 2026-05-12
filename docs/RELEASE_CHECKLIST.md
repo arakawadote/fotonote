@@ -20,6 +20,7 @@
 - [x] アプリアイコン設定
 - [x] 正式パッケージ名の決定
 - [ ] 署名キーの作成と安全な保管
+- [x] 署名設定のひな形作成
 - [ ] リリースビルド作成
 - [ ] Google Play Console登録
 - [ ] まずは内部テストで配布する
@@ -108,3 +109,7 @@
 - Google Play User Data / Privacy Policy：https://support.google.com/googleplay/android-developer/answer/10144311
 - Google Play Data safety：https://support.google.com/googleplay/android-developer/answer/10787469
 - AdMob App ID / Ad Unit ID：https://support.google.com/admob/answer/7356431
+
+## 関連手順
+
+- 署名キーとリリースAAB作成：`docs/SIGNING_AND_RELEASE.md`

@@ -51,3 +51,4 @@ https://<GitHubユーザー名>.github.io/<リポジトリ名>/privacy.html
 - GitHub Pagesの公開URLをPlay Consoleに登録する
 
 詳細は [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) を参照してください。
+署名付きAABの作成手順は [docs/SIGNING_AND_RELEASE.md](docs/SIGNING_AND_RELEASE.md) を参照してください。
