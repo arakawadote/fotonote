@@ -113,7 +113,7 @@ fun PrivacyPolicyScreen(
 
             PolicySection(
                 title = "広告について",
-                body = "現在の内部テスト版では、Google Mobile Ads SDKを使用してテスト広告を表示します。本番公開時にAdMobを利用する場合は、広告配信に関する情報をこのポリシーとGoogle PlayのData safetyに反映します。"
+                body = "FotoNoteは広告表示のためにGoogle Mobile Ads SDKを利用します。広告SDKにより、IPアドレス、アプリ内操作、診断情報、広告IDなどのデバイス識別子が広告配信、分析、不正防止の目的で取り扱われる場合があります。"
             )
 
             PolicySection(
@@ -123,7 +123,7 @@ fun PrivacyPolicyScreen(
 
             PolicySection(
                 title = "お問い合わせ",
-                body = "本プライバシーポリシーに関するお問い合わせは、developmentbyarakawadote@gmail.com までお願いします。"
+                body = "本プライバシーポリシーおよびデータ削除に関するお問い合わせは、developmentbyarakawadote@gmail.com までお願いします。"
             )
         }
     }

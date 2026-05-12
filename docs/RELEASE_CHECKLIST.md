@@ -40,7 +40,8 @@
 - [ ] Play ConsoleのData safety
   - Play Consoleで必ず回答する。
   - 現在のMVPは画像・EXIFを端末内で処理し、サーバー送信しない。
-  - AdMob追加後は、広告SDKによるデータ収集・共有の扱いを反映する。
+  - Google Mobile Ads SDKによるデータ収集・共有の扱いを反映する。
+  - 回答案は `docs/DATA_SAFETY_DRAFT.md` に作成済み。
 
 - [ ] プライバシーポリシー
   - Google Playでは、個人情報を扱わないアプリでもプライバシーポリシーURLが必要。
@@ -115,3 +116,5 @@
 ## 関連手順
 
 - 署名キーとリリースAAB作成：`docs/SIGNING_AND_RELEASE.md`
+- Google Playストア掲載文案：`docs/PLAY_STORE_LISTING_DRAFT.md`
+- Google Play Data safety回答案：`docs/DATA_SAFETY_DRAFT.md`

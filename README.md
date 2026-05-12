@@ -52,3 +52,4 @@ https://<GitHubユーザー名>.github.io/<リポジトリ名>/privacy.html
 
 詳細は [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md) を参照してください。
 署名付きAABの作成手順は [docs/SIGNING_AND_RELEASE.md](docs/SIGNING_AND_RELEASE.md) を参照してください。
+ストア掲載文案は [docs/PLAY_STORE_LISTING_DRAFT.md](docs/PLAY_STORE_LISTING_DRAFT.md)、Data safety回答案は [docs/DATA_SAFETY_DRAFT.md](docs/DATA_SAFETY_DRAFT.md) を参照してください。
