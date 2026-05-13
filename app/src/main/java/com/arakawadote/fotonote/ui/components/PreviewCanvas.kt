@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -217,22 +216,6 @@ private fun EmptyPreview(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Box(
-            modifier = Modifier
-                .size(68.dp)
-                .background(Color(0xFFF2F2F2)),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "PM",
-                color = Color(0xFF111111),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Medium
-            )
-        }
-
-        Spacer(modifier = Modifier.height(18.dp))
-
         Text(
             text = "写真を選択してください",
             color = Color(0xFF111111),
