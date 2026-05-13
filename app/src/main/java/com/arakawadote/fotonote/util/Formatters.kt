@@ -7,6 +7,7 @@ fun ExifData?.cameraName(): String {
     val model = this?.model.clean()
 
     return when {
+        make != null && model != null && model.startsWith(make, ignoreCase = true) -> model
         make != null && model != null -> "$make $model"
         model != null -> model
         make != null -> make

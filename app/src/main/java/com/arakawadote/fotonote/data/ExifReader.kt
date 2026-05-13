@@ -41,6 +41,14 @@ private fun ExifInterface.cleanAttribute(tag: String): String? {
 }
 
 private fun ExifInterface.formatFocalLength(): String? {
+    val equivalentFocalLength = getAttributeInt(
+        ExifInterface.TAG_FOCAL_LENGTH_IN_35MM_FILM,
+        0
+    ).takeIf { it > 0 }
+    if (equivalentFocalLength != null) {
+        return "${equivalentFocalLength}mm"
+    }
+
     val value = getAttributeDouble(ExifInterface.TAG_FOCAL_LENGTH, Double.NaN)
     if (value.isNaN() || value <= 0.0) return null
 
@@ -55,17 +63,45 @@ private fun ExifInterface.formatFNumber(): String? {
 }
 
 private fun ExifInterface.formatExposureTime(): String? {
-    val seconds = getAttributeDouble(ExifInterface.TAG_EXPOSURE_TIME, Double.NaN)
-    if (seconds.isNaN() || seconds <= 0.0) return null
+    cleanAttribute(ExifInterface.TAG_EXPOSURE_TIME)
+        ?.formatExposureTimeValue()
+        ?.let { return it }
 
+    val seconds = getAttributeDouble(ExifInterface.TAG_EXPOSURE_TIME, Double.NaN)
+    return formatExposureSeconds(seconds)
+}
+
+private fun String.formatExposureTimeValue(): String? {
+    val normalized = trim()
+        .lowercase(Locale.US)
+        .removeSuffix("sec")
+        .removeSuffix("s")
+        .trim()
+
+    val rationalParts = normalized.split("/")
+    if (rationalParts.size == 2) {
+        val numerator = rationalParts[0].trim().toDoubleOrNull()
+        val denominator = rationalParts[1].trim().toDoubleOrNull()
+        if (numerator != null && denominator != null && numerator > 0.0 && denominator > 0.0) {
+            if (abs(numerator - 1.0) < 0.0001) {
+                return "1/${denominator.roundToInt()}s"
+            }
+            return formatExposureSeconds(numerator / denominator)
+        }
+    }
+
+    return normalized.toDoubleOrNull()?.let(::formatExposureSeconds)
+}
+
+private fun formatExposureSeconds(seconds: Double): String? {
+    if (seconds.isNaN() || seconds <= 0.0) return null
     if (seconds >= 1.0) {
         return "${formatNumber(seconds)}s"
     }
 
     val reciprocal = 1.0 / seconds
-    val rounded = reciprocal.roundToInt()
-    if (abs(reciprocal - rounded) < 0.1) {
-        return "1/${rounded}s"
+    if (reciprocal >= 2.0) {
+        return "1/${reciprocal.roundToInt()}s"
     }
 
     return String.format(Locale.US, "%.3fs", seconds).trimEnd('0').trimEnd('.')
