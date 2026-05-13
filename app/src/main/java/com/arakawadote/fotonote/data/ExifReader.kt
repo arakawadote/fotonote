@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
+
+private const val FULL_FRAME_DIAGONAL_MM = 43.266615305567875
 
 class ExifReader {
     fun read(context: Context, uri: Uri): ExifData {
@@ -41,18 +44,59 @@ private fun ExifInterface.cleanAttribute(tag: String): String? {
 }
 
 private fun ExifInterface.formatFocalLength(): String? {
+    val value = getAttributeDouble(ExifInterface.TAG_FOCAL_LENGTH, Double.NaN)
+
     val equivalentFocalLength = getAttributeInt(
         ExifInterface.TAG_FOCAL_LENGTH_IN_35MM_FILM,
         0
-    ).takeIf { it > 0 }
-    if (equivalentFocalLength != null) {
-        return "${equivalentFocalLength}mm"
-    }
+    ).takeIf { it > 0 } ?: estimateFocalLengthIn35mm(value)
+    if (equivalentFocalLength != null) return "${equivalentFocalLength}mm"
 
-    val value = getAttributeDouble(ExifInterface.TAG_FOCAL_LENGTH, Double.NaN)
     if (value.isNaN() || value <= 0.0) return null
 
     return "${formatNumber(value)}mm"
+}
+
+private fun ExifInterface.estimateFocalLengthIn35mm(focalLength: Double): Int? {
+    if (focalLength.isNaN() || focalLength <= 0.0) return null
+
+    val pixelWidth = getPositiveInt(ExifInterface.TAG_PIXEL_X_DIMENSION)
+        ?: getPositiveInt(ExifInterface.TAG_IMAGE_WIDTH)
+        ?: return null
+    val pixelHeight = getPositiveInt(ExifInterface.TAG_PIXEL_Y_DIMENSION)
+        ?: getPositiveInt(ExifInterface.TAG_IMAGE_LENGTH)
+        ?: return null
+    val xResolution = getPositiveDouble(ExifInterface.TAG_FOCAL_PLANE_X_RESOLUTION)
+        ?: return null
+    val yResolution = getPositiveDouble(ExifInterface.TAG_FOCAL_PLANE_Y_RESOLUTION)
+        ?: return null
+    val unitMillimeters = when (
+        getAttributeInt(
+            ExifInterface.TAG_FOCAL_PLANE_RESOLUTION_UNIT,
+            ExifInterface.RESOLUTION_UNIT_INCHES.toInt()
+        )
+    ) {
+        ExifInterface.RESOLUTION_UNIT_INCHES.toInt() -> 25.4
+        ExifInterface.RESOLUTION_UNIT_CENTIMETERS.toInt() -> 10.0
+        else -> return null
+    }
+
+    val sensorWidth = pixelWidth / xResolution * unitMillimeters
+    val sensorHeight = pixelHeight / yResolution * unitMillimeters
+    val sensorDiagonal = sqrt(sensorWidth * sensorWidth + sensorHeight * sensorHeight)
+        .takeIf { it in 1.0..60.0 }
+        ?: return null
+    val equivalent = (focalLength * FULL_FRAME_DIAGONAL_MM / sensorDiagonal).roundToInt()
+
+    return equivalent.takeIf { it in 8..400 }
+}
+
+private fun ExifInterface.getPositiveInt(tag: String): Int? {
+    return getAttributeInt(tag, 0).takeIf { it > 0 }
+}
+
+private fun ExifInterface.getPositiveDouble(tag: String): Double? {
+    return getAttributeDouble(tag, Double.NaN).takeIf { !it.isNaN() && it > 0.0 }
 }
 
 private fun ExifInterface.formatFNumber(): String? {

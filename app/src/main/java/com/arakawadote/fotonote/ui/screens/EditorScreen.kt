@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.arakawadote.fotonote.BuildConfig
 import com.arakawadote.fotonote.domain.model.FrameTemplate
 import com.arakawadote.fotonote.ui.EditorViewModel
 import com.arakawadote.fotonote.ui.components.BannerAdView
@@ -73,10 +74,20 @@ fun EditorScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = "FotoNote",
-                        fontWeight = FontWeight.Medium
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = "FotoNote",
+                            fontWeight = FontWeight.Medium
+                        )
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            color = Color(0xFF8A8A8A),
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
                 },
                 actions = {
                     TextButton(onClick = onOpenPrivacyPolicy) {
