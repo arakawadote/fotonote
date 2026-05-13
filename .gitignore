@@ -6,6 +6,7 @@ keystore.properties
 *.jks
 *.keystore
 keystores/
+dist/
 build/
 captures/
 .externalNativeBuild/

@@ -58,7 +58,24 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders["adMobApplicationId"] =
+                "ca-app-pub-3940256099942544~3347511713"
+            buildConfigField(
+                "String",
+                "BANNER_AD_UNIT_ID",
+                "\"ca-app-pub-3940256099942544/9214589741\""
+            )
+        }
+
         release {
+            manifestPlaceholders["adMobApplicationId"] =
+                "ca-app-pub-9719679577337445~2539005797"
+            buildConfigField(
+                "String",
+                "BANNER_AD_UNIT_ID",
+                "\"ca-app-pub-9719679577337445/7848996628\""
+            )
             if (hasReleaseKeystore) {
                 signingConfig = signingConfigs.getByName("release")
             }
@@ -80,6 +97,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         compose = true
     }
 }

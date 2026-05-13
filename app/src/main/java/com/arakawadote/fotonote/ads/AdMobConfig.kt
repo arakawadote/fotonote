@@ -1,5 +1,7 @@
-﻿package com.arakawadote.fotonote.ads
+package com.arakawadote.fotonote.ads
+
+import com.arakawadote.fotonote.BuildConfig
 
 object AdMobConfig {
-    const val BANNER_AD_UNIT_ID = "ca-app-pub-9719679577337445/7848996628"
+    val BANNER_AD_UNIT_ID: String = BuildConfig.BANNER_AD_UNIT_ID
 }

@@ -15,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FotoNote">
 
-        <!-- AdMob app ID for FotoNote. -->
+        <!-- Debug builds use Google's sample AdMob app ID. Release builds use FotoNote's production app ID. -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9719679577337445~2539005797" />
+            android:value="${adMobApplicationId}" />
 
         <activity
             android:name=".ui.MainActivity"
