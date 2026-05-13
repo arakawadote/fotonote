@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.arakawadote.fotonote.data.ImageDecoder
 import com.arakawadote.fotonote.domain.model.ExifData
+import com.arakawadote.fotonote.domain.model.FrameTemplate
 import com.arakawadote.fotonote.util.cameraName
 import com.arakawadote.fotonote.util.shootingSettings
 import kotlinx.coroutines.Dispatchers
@@ -43,10 +44,14 @@ import kotlinx.coroutines.withContext
 fun PreviewCanvas(
     selectedImageUri: Uri?,
     exifData: ExifData?,
+    selectedTemplate: FrameTemplate,
     isReadingExif: Boolean,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val palette = remember(selectedTemplate) {
+        selectedTemplate.previewPalette()
+    }
     val bitmap by produceState<Bitmap?>(initialValue = null, selectedImageUri) {
         value = null
         selectedImageUri ?: return@produceState
@@ -58,8 +63,8 @@ fun PreviewCanvas(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(Color.White)
-            .border(1.dp, Color(0xFFDDDDDD))
+            .background(palette.frameBackground)
+            .border(1.dp, palette.borderColor)
             .padding(14.dp)
     ) {
         if (bitmap == null) {
@@ -72,6 +77,7 @@ fun PreviewCanvas(
             FramedPhotoPreview(
                 bitmap = bitmap,
                 exifData = exifData,
+                palette = palette,
                 isReadingExif = isReadingExif,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -83,6 +89,7 @@ fun PreviewCanvas(
 private fun FramedPhotoPreview(
     bitmap: Bitmap?,
     exifData: ExifData?,
+    palette: PreviewPalette,
     isReadingExif: Boolean,
     modifier: Modifier = Modifier
 ) {
@@ -103,6 +110,7 @@ private fun FramedPhotoPreview(
                 contentDescription = "選択した写真",
                 modifier = Modifier
                     .fillMaxWidth()
+                    .border(1.dp, palette.photoBorderColor)
                     .aspectRatio(photoAspectRatio),
                 contentScale = ContentScale.Crop
             )
@@ -123,7 +131,7 @@ private fun FramedPhotoPreview(
                 isReadingExif -> {
                     Text(
                         text = "EXIF読み取り中",
-                        color = Color(0xFF444444),
+                        color = palette.secondaryText,
                         style = MaterialTheme.typography.labelSmall
                     )
                 }
@@ -131,7 +139,7 @@ private fun FramedPhotoPreview(
                 settings.isNotEmpty() -> {
                     Text(
                         text = exifData.cameraName(),
-                        color = Color(0xFF222222),
+                        color = palette.primaryText,
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
@@ -139,7 +147,7 @@ private fun FramedPhotoPreview(
                     if (settings.isNotEmpty()) {
                         Text(
                             text = settings,
-                            color = Color(0xFF444444),
+                            color = palette.secondaryText,
                             style = MaterialTheme.typography.labelSmall,
                             textAlign = TextAlign.Center
                         )
@@ -149,20 +157,54 @@ private fun FramedPhotoPreview(
                 else -> {
                     Text(
                         text = exifData.cameraName(),
-                        color = Color(0xFF222222),
+                        color = palette.primaryText,
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     )
                     Text(
                         text = "EXIF情報が見つかりませんでした",
-                        color = Color(0xFF444444),
+                        color = palette.secondaryText,
                         style = MaterialTheme.typography.labelSmall,
                         textAlign = TextAlign.Center
                     )
                 }
             }
         }
+    }
+}
+
+private data class PreviewPalette(
+    val frameBackground: Color,
+    val borderColor: Color,
+    val photoBorderColor: Color,
+    val primaryText: Color,
+    val secondaryText: Color
+)
+
+private fun FrameTemplate.previewPalette(): PreviewPalette {
+    return when (this) {
+        FrameTemplate.ClassicWhite -> PreviewPalette(
+            frameBackground = Color.White,
+            borderColor = Color(0xFFDDDDDD),
+            photoBorderColor = Color.Transparent,
+            primaryText = Color(0xFF222222),
+            secondaryText = Color(0xFF444444)
+        )
+        FrameTemplate.SoftGray -> PreviewPalette(
+            frameBackground = Color(0xFFF1F2F2),
+            borderColor = Color(0xFFD6D8D8),
+            photoBorderColor = Color.White,
+            primaryText = Color(0xFF1E2326),
+            secondaryText = Color(0xFF586064)
+        )
+        FrameTemplate.Noir -> PreviewPalette(
+            frameBackground = Color(0xFF111111),
+            borderColor = Color(0xFF333333),
+            photoBorderColor = Color(0xFF2C2C2C),
+            primaryText = Color.White,
+            secondaryText = Color(0xFFCFCFCF)
+        )
     }
 }
 

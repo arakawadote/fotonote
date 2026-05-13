@@ -145,7 +145,9 @@ data class EditorState(
 
 ```kotlin
 enum class FrameTemplate {
-    ClassicWhite
+    ClassicWhite,
+    SoftGray,
+    Noir
 }
 ```
 

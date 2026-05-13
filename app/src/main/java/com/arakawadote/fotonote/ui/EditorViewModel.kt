@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.arakawadote.fotonote.data.ExifReader
 import com.arakawadote.fotonote.domain.model.EditorState
+import com.arakawadote.fotonote.domain.model.FrameTemplate
 import com.arakawadote.fotonote.domain.usecase.ExportImageUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -68,7 +69,9 @@ class EditorViewModel(
     }
 
     fun onExportRequested() {
-        val imageUri = _state.value.selectedImageUri ?: return
+        val currentState = _state.value
+        val imageUri = currentState.selectedImageUri ?: return
+        val selectedTemplate = currentState.selectedTemplate
 
         _state.update {
             it.copy(
@@ -84,7 +87,8 @@ class EditorViewModel(
                     exportImageUseCase.export(
                         context = getApplication<Application>(),
                         imageUri = imageUri,
-                        exifData = _state.value.exifData
+                        exifData = _state.value.exifData,
+                        template = selectedTemplate
                     )
                 }
             }
@@ -108,6 +112,17 @@ class EditorViewModel(
                     }
                 )
             }
+        }
+    }
+
+    fun onTemplateSelected(template: FrameTemplate) {
+        _state.update {
+            it.copy(
+                selectedTemplate = template,
+                savedImageUri = null,
+                successMessage = null,
+                errorMessage = null
+            )
         }
     }
 }

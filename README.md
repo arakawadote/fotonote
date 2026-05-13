@@ -10,7 +10,8 @@ Android向けのKotlin / Jetpack Composeアプリです。
 - パッケージ名: `com.arakawadote.fotonote`
 - 最小対応Android: Android 8.0 / API 26
 - 画面向き: 縦画面メイン
-- 初期テンプレート: Classic White / 幅1080px / 高さ可変
+- テンプレート: Classic White / Soft Gray / Noir
+- 書き出しサイズ: 幅1080px / 高さ可変
 
 ## 実装済み
 
@@ -20,6 +21,8 @@ Android向けのKotlin / Jetpack Composeアプリです。
 - EXIF読み取り
 - 画像の向き補正
 - Classic Whiteテンプレートのプレビュー
+- 3種類のテンプレート選択
+- 選択テンプレートを反映した画像書き出し
 - 画像比率に合わせたフレーム生成
 - MediaStoreでのギャラリー保存
 - アプリアイコン差し替え

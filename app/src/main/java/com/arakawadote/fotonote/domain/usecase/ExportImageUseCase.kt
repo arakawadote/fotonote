@@ -11,6 +11,7 @@ import android.net.Uri
 import com.arakawadote.fotonote.data.ImageDecoder
 import com.arakawadote.fotonote.data.ImageSaver
 import com.arakawadote.fotonote.domain.model.ExifData
+import com.arakawadote.fotonote.domain.model.FrameTemplate
 import com.arakawadote.fotonote.util.cameraName
 import com.arakawadote.fotonote.util.shootingSettings
 import java.time.LocalDateTime
@@ -24,7 +25,8 @@ class ExportImageUseCase(
     fun export(
         context: Context,
         imageUri: Uri,
-        exifData: ExifData?
+        exifData: ExifData?,
+        template: FrameTemplate
     ): Uri {
         val sourceBitmap = ImageDecoder.decodeOrientedBitmap(
             context = context,
@@ -34,7 +36,8 @@ class ExportImageUseCase(
 
         val frameBitmap = createFrameBitmap(
             sourceBitmap = sourceBitmap,
-            exifData = exifData
+            exifData = exifData,
+            template = template
         )
 
         return imageSaver.saveJpeg(
@@ -46,8 +49,10 @@ class ExportImageUseCase(
 
     private fun createFrameBitmap(
         sourceBitmap: Bitmap,
-        exifData: ExifData?
+        exifData: ExifData?,
+        template: FrameTemplate
     ): Bitmap {
+        val style = template.exportStyle()
         val outputWidth = 1080
         val horizontalPadding = 48f
         val topPadding = 48f
@@ -78,7 +83,7 @@ class ExportImageUseCase(
             Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(outputBitmap)
-        canvas.drawColor(Color.WHITE)
+        canvas.drawColor(style.frameBackgroundColor)
 
         val imagePaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
         val imageRect = RectF(
@@ -88,16 +93,24 @@ class ExportImageUseCase(
             topPadding + photoHeight
         )
         canvas.drawBitmap(sourceBitmap, null, imageRect, imagePaint)
+        if (style.photoStrokeWidth > 0f) {
+            val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = style.photoStrokeColor
+                this.style = Paint.Style.STROKE
+                strokeWidth = style.photoStrokeWidth
+            }
+            canvas.drawRect(imageRect, strokePaint)
+        }
 
         val centerX = outputWidth / 2f
         val cameraPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.rgb(34, 34, 34)
+            color = style.primaryTextColor
             textAlign = Paint.Align.CENTER
             textSize = cameraTextSize
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         }
         val settingsPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = Color.rgb(68, 68, 68)
+            color = style.secondaryTextColor
             textAlign = Paint.Align.CENTER
             textSize = settingsTextSize
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
@@ -122,5 +135,39 @@ class ExportImageUseCase(
             DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss", Locale.US)
         )
         return "FOTONOTE_$timestamp.jpg"
+    }
+}
+
+private data class ExportStyle(
+    val frameBackgroundColor: Int,
+    val photoStrokeColor: Int,
+    val photoStrokeWidth: Float,
+    val primaryTextColor: Int,
+    val secondaryTextColor: Int
+)
+
+private fun FrameTemplate.exportStyle(): ExportStyle {
+    return when (this) {
+        FrameTemplate.ClassicWhite -> ExportStyle(
+            frameBackgroundColor = Color.WHITE,
+            photoStrokeColor = Color.TRANSPARENT,
+            photoStrokeWidth = 0f,
+            primaryTextColor = Color.rgb(34, 34, 34),
+            secondaryTextColor = Color.rgb(68, 68, 68)
+        )
+        FrameTemplate.SoftGray -> ExportStyle(
+            frameBackgroundColor = Color.rgb(241, 242, 242),
+            photoStrokeColor = Color.WHITE,
+            photoStrokeWidth = 4f,
+            primaryTextColor = Color.rgb(30, 35, 38),
+            secondaryTextColor = Color.rgb(88, 96, 100)
+        )
+        FrameTemplate.Noir -> ExportStyle(
+            frameBackgroundColor = Color.rgb(17, 17, 17),
+            photoStrokeColor = Color.rgb(44, 44, 44),
+            photoStrokeWidth = 3f,
+            primaryTextColor = Color.WHITE,
+            secondaryTextColor = Color.rgb(207, 207, 207)
+        )
     }
 }

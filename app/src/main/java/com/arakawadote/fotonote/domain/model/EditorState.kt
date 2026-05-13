@@ -5,6 +5,7 @@ import android.net.Uri
 data class EditorState(
     val selectedImageUri: Uri? = null,
     val exifData: ExifData? = null,
+    val selectedTemplate: FrameTemplate = FrameTemplate.ClassicWhite,
     val isReadingExif: Boolean = false,
     val isExporting: Boolean = false,
     val savedImageUri: Uri? = null,

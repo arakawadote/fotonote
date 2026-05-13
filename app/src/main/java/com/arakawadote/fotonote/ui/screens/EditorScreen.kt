@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.arakawadote.fotonote.domain.model.FrameTemplate
 import com.arakawadote.fotonote.ui.EditorViewModel
 import com.arakawadote.fotonote.ui.components.BannerAdView
 import com.arakawadote.fotonote.ui.components.PreviewCanvas
@@ -104,16 +105,19 @@ fun EditorScreen(
             PreviewCanvas(
                 selectedImageUri = state.selectedImageUri,
                 exifData = state.exifData,
+                selectedTemplate = state.selectedTemplate,
                 isReadingExif = state.isReadingExif,
                 modifier = Modifier.fillMaxWidth()
             )
 
             ControlPanel(
                 hasSelectedImage = state.selectedImageUri != null,
+                selectedTemplate = state.selectedTemplate,
                 isReadingExif = state.isReadingExif,
                 isExporting = state.isExporting,
                 successMessage = state.successMessage,
                 errorMessage = state.errorMessage,
+                onTemplateSelected = viewModel::onTemplateSelected,
                 onPickImage = {
                     imagePicker.launch(arrayOf("image/*"))
                 },
@@ -128,10 +132,12 @@ fun EditorScreen(
 @Composable
 private fun ControlPanel(
     hasSelectedImage: Boolean,
+    selectedTemplate: FrameTemplate,
     isReadingExif: Boolean,
     isExporting: Boolean,
     successMessage: String?,
     errorMessage: String?,
+    onTemplateSelected: (FrameTemplate) -> Unit,
     onPickImage: () -> Unit,
     onExportImage: () -> Unit,
     modifier: Modifier = Modifier
@@ -160,18 +166,24 @@ private fun ControlPanel(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Text(
-                    text = "Classic White",
+                    text = selectedTemplate.title,
                     color = Color(0xFF111111),
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = "現在のテンプレート",
+                    text = selectedTemplate.description,
                     color = Color(0xFF444444),
                     style = MaterialTheme.typography.bodySmall
                 )
             }
         }
+
+        TemplateSelector(
+            selectedTemplate = selectedTemplate,
+            onTemplateSelected = onTemplateSelected,
+            enabled = !isReadingExif && !isExporting
+        )
 
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -227,6 +239,64 @@ private fun ControlPanel(
                 color = Color(0xFF8A1F11),
                 style = MaterialTheme.typography.bodySmall
             )
+        }
+    }
+}
+
+@Composable
+private fun TemplateSelector(
+    selectedTemplate: FrameTemplate,
+    onTemplateSelected: (FrameTemplate) -> Unit,
+    enabled: Boolean,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Text(
+            text = "テンプレート",
+            color = Color(0xFF111111),
+            style = MaterialTheme.typography.labelLarge,
+            fontWeight = FontWeight.Medium
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            FrameTemplate.values().forEach { template ->
+                val isSelected = template == selectedTemplate
+                if (isSelected) {
+                    Button(
+                        onClick = { onTemplateSelected(template) },
+                        enabled = enabled,
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF111111),
+                            contentColor = Color.White
+                        ),
+                        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp)
+                    ) {
+                        Text(
+                            text = template.shortLabel,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
+                } else {
+                    OutlinedButton(
+                        onClick = { onTemplateSelected(template) },
+                        enabled = enabled,
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(vertical = 10.dp, horizontal = 4.dp)
+                    ) {
+                        Text(
+                            text = template.shortLabel,
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                    }
+                }
+            }
         }
     }
 }

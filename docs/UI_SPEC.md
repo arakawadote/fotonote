@@ -105,9 +105,13 @@ EXIF情報を読み取り、フレーム付き画像を作成します。
 
 ---
 
-## 7. テンプレート：Classic White
+## 7. テンプレート
 
-MVPで実装するテンプレートは、Classic Whiteのみとする。
+v0.2では以下の3種類を実装する。
+
+- Classic White
+- Soft Gray
+- Noir
 
 ## 7.1 書き出しキャンバス
 
@@ -135,10 +139,11 @@ MVPで実装するテンプレートは、Classic Whiteのみとする。
 
 ## 7.3 スタイル
 
-- 背景色：白
+- Classic White：白背景、黒系テキスト
+- Soft Gray：淡いグレー背景、濃いグレー系テキスト
+- Noir：黒背景、白系テキスト
 - 写真周囲の余白：48px程度
 - 下部メタデータエリア：180pxから240px程度
-- 文字色：黒に近い色
 - 区切り線：任意
 - ロゴ画像：使用しない
 
@@ -221,18 +226,12 @@ Panasonic LUMIX LX7
 
 ## 9.3 テンプレート選択
 
-MVPではテンプレートは1種類のみ。
+テンプレートは以下から選択できる。
 
 ```txt
 Classic White
-```
-
-将来的な追加候補。
-
-```txt
-Classic White
-Minimal Black
-Film Style
+Soft Gray
+Noir
 ```
 
 ---
